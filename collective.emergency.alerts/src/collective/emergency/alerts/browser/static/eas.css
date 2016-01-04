@@ -1,0 +1,51 @@
+@import url('++resource++collective.emergency.alerts/eas.live.css');
+
+#eas-system xmp { background-color: #eccbb0; border: 1px solid #e7b184; }
+#eas-system .example { color: red; }
+#eas-system .eas-lvl-0, #eas-system .eas-lvl-1, #eas-system .eas-lvl-2 {
+    border-radius: 15px;
+    color: white;
+    display: inline-block;
+    font-weight: bold;
+    padding: 4px 10px;
+    text-align: center;
+    width: 60%;
+}
+.eas-lvl-example { padding: 4px 10px;}
+#eas-alert-container {display: none; }
+.eas-alert { border-bottom: 1px solid #bbb; padding: 5px;}
+.eas-alert a { text-decoration: none; }
+.eas-cursor { cursor: help; }
+.eas-alert *, .eas-alert * *, .eas-alert * * * { vertical-align: middle; }
+
+.eas-alert .plone-btn {
+    float: right;
+    margin-right: 5px;
+}
+
+.eas-error {
+    font-weight: bold;
+    font-size: 18px;
+}
+#eas-global-info {
+    border: 1px solid #bbb;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+#eas-code-link {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #A9D0F5;
+    border: 1px solid #bbb;
+    height: 55px !important;
+    min-height: 55px !important;
+    width: 100% !important;
+}
+#eas-code {
+    background-color: #A9D0F5;
+    border: 1px solid #bbb;
+    height: 600px;
+    width: 100%;
+}

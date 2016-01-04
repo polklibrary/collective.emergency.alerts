@@ -1,0 +1,17 @@
+.live-eas { padding-top: 27px; }
+.live-eas-lvl-0, .live-eas-lvl-1, .live-eas-lvl-2 {
+    font-style: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.live-eas-lvl-0, .eas-lvl-0  { background-color: red; color: white; font-size: 14px; font-weight: bold; }
+.live-eas-lvl-1, .eas-lvl-1  { background-color: darkorange; color: white; font-size: 14px; font-weight: bold }
+.live-eas-lvl-2, .eas-lvl-2  { background-color: #2385C4; color: white; font-size: 14px; font-weight: bold }
+.live-eas-alert {
+    border-bottom: 1px dashed white;
+    height: 16px;
+    left: 0;
+    padding: 5px;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: 0;
+}

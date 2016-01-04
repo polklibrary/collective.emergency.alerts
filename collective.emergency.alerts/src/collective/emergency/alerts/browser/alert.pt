@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+
+	<metal:block fill-slot="javascript_head_slot">
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                
+            });
+        </script>
+        
+	</metal:block>
+    
+    <metal:content-title fill-slot="content-title">
+        <h1 class="documentFirstHeading" tal:on-error="nothing">
+            <tal:block replace="python: view.alert.get('title')" />
+        </h1>
+    </metal:content-title>
+    
+	<metal:content fill-slot="content-core">
+    
+        <div tal:condition="not: view/error" tal:content="structure python: view.alert.get('body')"></div>
+    
+        <div class="eas-error" tal:condition="view/error">
+            No alert was found with this id
+        </div>
+    
+	</metal:content>
+
+</body>
+</html>

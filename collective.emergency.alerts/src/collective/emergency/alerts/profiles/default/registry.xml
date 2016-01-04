@@ -1,0 +1,8 @@
+<registry>
+    <records interface="collective.emergency.alerts.browser.controlpanel.IEmergencyAlert" 
+         prefix="collective.emergency.alerts.browser.controlpanel.IEmergencyAlert"
+         purge="true"
+         >
+    </records>
+
+</registry>

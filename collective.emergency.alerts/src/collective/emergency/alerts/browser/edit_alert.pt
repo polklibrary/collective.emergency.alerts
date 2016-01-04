@@ -1,0 +1,129 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+
+	<metal:block fill-slot="javascript_head_slot">
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                
+            });
+        </script>
+        
+	</metal:block>
+
+    <metal:content-title fill-slot="content-title">
+        <h1 class="documentFirstHeading" tal:on-error="nothing">
+            Editing Alert: 
+            <tal:block replace="python: view.alert.get('title')" />
+        </h1>
+    </metal:content-title>
+    
+	<metal:content fill-slot="content-core">
+    
+    
+        <div class="eas-error" tal:condition="view/error">
+            No alert was found with this id
+        </div>
+    
+        <form tal:condition="not: view/error"
+              id="form" 
+              enctype="multipart/form-data" 
+              method="post" 
+              action="${view/portal/absolute_url}/edit_alert" 
+              class="rowlike enableUnloadProtection kssattr-formname-edit">
+              
+            <div id="formfield-form-widgets-title" data-fieldname="form.widgets.title" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.title" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-title">
+                Alert Title
+                <span title="Required" class="required horizontal">&nbsp;</span>
+                </label>
+                <div class="fieldErrorBox"></div>
+                <input type="text" tal:attributes="value python: view.alert.get('title')" 
+                        class="text-widget required textline-field" 
+                        name="form.widgets.title" 
+                        id="form-widgets-title">
+            </div>
+              
+            <div id="formfield-form-widgets-body" data-fieldname="form.widgets.body" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.body" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-body">
+                Alert Details
+                <span title="Required" class="required horizontal">&nbsp;</span>
+                </label>
+                <div class="fieldErrorBox"></div>
+                <textarea type="text" 
+                          class="pat-tinymce" 
+                          name="form.widgets.body" 
+                          id="form-widgets-body"
+                          data-pat-tinymce='{"relatedItems": {"vocabularyUrl": "/relateditems-test.json" },
+                           {"upload": {"baseUrl": "/", relativePath: "upload"} } }'
+                          tal:content="python: view.alert.get('body')" 
+                           >
+                </textarea>
+            </div>
+            
+            <div id="formfield-form-widgets-level" data-fieldname="form.widgets.level" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.level" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-level">
+                Alert will disappear at: (leave empty for immediate alert)
+                <span title="Required" class="required horizontal">&nbsp;</span>
+                </label>
+                <div class="fieldErrorBox"></div>
+                <select name="form.widgets.level" 
+                        id="form-widgets-level">
+                        <option class="eas-lvl-0" value="0">URGENT - 0</option>
+                        <option class="eas-lvl-1" value="1">MODERATE - 1</option>
+                        <option class="eas-lvl-2" value="2">INFORM - 2</option>
+                </select>
+            </div>
+            
+            <div id="formfield-form-widgets-start" data-fieldname="form.widgets.start" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.start" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-start">
+                Alert will appear at: (leave empty for immediate alert)
+                <span title="Required" class="required horizontal">&nbsp;</span>
+                </label>
+                <div class="fieldErrorBox"></div>
+                <input type="text" tal:attributes="value python: view.alert.get('start')" 
+                        class="pat-pickadate" 
+                        name="form.widgets.start" 
+                        id="form-widgets-start">
+            </div>
+              
+            <div id="formfield-form-widgets-end" data-fieldname="form.widgets.end" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.end" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-end">
+                Alert will disappear at: (leave empty for immediate alert)
+                <span title="Required" class="required horizontal">&nbsp;</span>
+                </label>
+                <div class="fieldErrorBox"></div>
+                <input type="text" tal:attributes="value python: view.alert.get('end')" 
+                        class="pat-pickadate" 
+                        name="form.widgets.end" 
+                        id="form-widgets-end">
+            </div>
+            
+            <div id="formfield-form-widgets-active" data-fieldname="form.widgets.active" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.active" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-active">
+                Activate Alert?
+                <span title="Required" class="required horizontal">&nbsp;</span>
+                </label>
+                <div class="fieldErrorBox"></div>
+                <input type="checkbox" 
+                       tal:attributes="checked python: view.alert.get('is_active')=='True'"
+                       name="form.widgets.active" 
+                       id="form-widgets-active">
+            </div>
+            
+            <input type="hidden" name="id" tal:attributes="value python: view.alert.id" />
+            <input type="submit" class="context" value="Save" name="form.widgets.submit" />
+            <a class="standalone" href="${view/portal/absolute_url}/@@emergency_manager">Cancel</a>
+
+        </form>
+
+	</metal:content>
+
+</body>
+</html>

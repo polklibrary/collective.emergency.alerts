@@ -1,0 +1,168 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="plone">
+      
+
+    <script>
+        $(document).ready(function(){
+        
+            $('#eas-add-feed').click(function(){
+                var input = $('<input>').attr({
+                    'type': 'text',
+                    'name': 'form.feed.global.target',
+                    'value': '',
+                });
+                $('#eas-global-feeds').append(input);
+            });
+            
+            $('.eas-delete').click(function(e){
+                return confirm("Are you sure you want to delete this alert?");
+            });
+            
+            var alerts_container = $('#eas-alert-container');
+            var alerts = alerts_container.children('div');
+
+            // Quick sort alerts
+            alerts.sort(function(a,b){
+                var an = a.getAttribute('data-sort');
+                var bn = b.getAttribute('data-sort');
+                if(an > bn) return 1;
+                if(an < bn) return -1;
+                return 0;
+            });
+            alerts.detach().appendTo(alerts_container);
+            alerts_container.show();
+        });   
+    </script>
+      
+<body>
+
+    <p class="documentDescription" i18n:translate="description_control_panel">
+        Desc
+    </p>
+    
+
+    
+<div id="eas-system" class="pat-autotoc autotabs"
+         data-pat-autotoc="section:fieldset;levels:legend;">
+
+         
+    <fieldset>
+        <legend>Alerts</legend>
+        
+        <div id="eas-alert-container" tal:define="alerts view/get_alerts">
+        
+            <div class="eas-alert" tal:repeat="(k,v) alerts/items" data-sort="${v/title}-${k}">
+            
+                <a title="Toggle Alert On/Off"
+                   tal:condition="python: v['is_active']=='True'" 
+                   tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.state=True')">
+                   <img src="${view/portal/absolute_url}/++resource++collective.emergency.alerts/switch-on.png" alt="State ON" />
+                </a>
+                <a title="Toggle Alert On/Off"
+                   tal:condition="python: v['is_active']=='False'" 
+                   tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.state=False')">
+                   <img src="${view/portal/absolute_url}/++resource++collective.emergency.alerts/switch-off.png" alt="State OFF" />
+                </a>
+                <span class="icon-controlpanel-DateAndTime eas-cursor"
+                      tal:attributes="title python:view.fmt_daterange(v)">
+                </span>
+
+                <a class="eas-lvl-${v/level}"
+                   href="${view/portal/absolute_url}/alert?id=${k}"> ${v/title} </a>
+
+                
+                <a class="plone-btn plone-btn-danger delete plone-btn-xs eas-delete" 
+                   title="Delete Alert"
+                   tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.remove=1')">
+                   Remove
+                </a>
+                <a class="plone-btn plone-btn-primary save plone-btn-xs" 
+                   title="Edit Alert"
+                   href="${view/portal/absolute_url}/edit_alert?id=${k}">
+                   Edit
+                </a>
+            </div>
+            
+        </div>
+        <br />
+        <a class="context" href="${view/portal/absolute_url}/edit_alert">Add Alert</a>
+        
+    </fieldset>
+    
+    <fieldset>
+        <legend>Add Feeds</legend>
+    
+        <form id="form" method="post" action="${context/absolute_url}/@@emergency_manager">
+            <div id="eas-local-feed">   
+                <label>This Sites Emergency Broadcaster</label>
+                <input type="text" readonly="readonly" value="${view/portal/absolute_url}/eas_alerts" />
+            </div>
+            <br />
+            <br />
+            
+            <div id="eas-global-feeds">
+                <label>Global Emergency Broadcast Receiver</label>
+                <span class="example">(Global alerts trump local alerts)</span>
+                <tal:block repeat="feed python: view.get('global_alert_feeds')">
+                    <input type="text" name="form.feed.global.target" value="${feed}" />
+                </tal:block>
+                
+            </div>
+            <input id="eas-add-feed" class="standalone" type="button" value="Add global feed" />
+            <input class="context" type="submit" name="form.feed.global.save" value="Save Global Feeds" />
+
+        </form>
+        
+        <div id="eas-global-info">
+            If you want to add a custom feed from another source, format the feeds as follows:
+            
+            <br />
+            <br />
+            
+            <label>JSONP Example: </label>
+            <xmp>
+                _EAS.loaded(
+                    [{
+                        'title' : 'There is an alert',
+                        'url' : 'http://some.news.posting',
+                        'level' : '0'
+                    }]
+                )
+            </xmp>
+            
+        </div>
+        
+    </fieldset>
+    
+    <fieldset>
+        <legend>Code Generator</legend>
+        
+        <div>
+            The javascript below displays this sites EAS system.  You can copy this javascript and
+            add it to any external system to give it the same alert display.  The file is raw javascript 
+            and should not collide with any namespaces of other systems.
+        </div>
+        
+        <br />
+        <br />
+        
+        <label>Direct Links to javascript file:</label>
+        <textarea id="eas-code-link" rows="2" readonly="readonly"><script type="text/javascript" src="${view/portal/absolute_url}/eas.js"></script></textarea>
+
+        <br />
+        <br />
+        
+        <label>Create file called 'eas.js' and add it to a site:</label>
+        <iframe id="eas-code" src="${view/portal/absolute_url}/eas.js"></iframe>
+        
+    </fieldset>
+    
+    
+</div>
+
+</body>
+</html>

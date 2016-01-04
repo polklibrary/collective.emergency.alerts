@@ -1,0 +1,9 @@
+plone.api
+setuptools
+z3c.jbot
+plone.directives.form
+
+[test]
+plone.app.testing
+plone.app.contenttypes
+plone.app.robotframework[debug]

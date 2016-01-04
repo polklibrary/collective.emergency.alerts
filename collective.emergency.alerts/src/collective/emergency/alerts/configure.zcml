@@ -1,0 +1,49 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.emergency.alerts">
+
+  <includeDependencies package="." />
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include package=".browser" />
+
+
+  <genericsetup:registerProfile
+      name="default"
+      title="collective.emergency.alerts"
+      directory="profiles/default"
+      description="Installs the collective.emergency.alerts add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="collective.emergency.alerts-postInstall"
+      title="collective.emergency.alerts post_install import step"
+      description="Post install import step from collective.emergency.alerts"
+      handler=".setuphandlers.post_install">
+  </genericsetup:importStep>
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="collective.emergency.alerts"
+      directory="profiles/uninstall"
+      description="Uninstalls the collective.emergency.alerts add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="collective.emergency.alerts-uninstall"
+      title="collective.emergency.alerts uninstall import step"
+      description="Import step run during ininstalling collective.emergency.alerts"
+      handler=".setuphandlers.uninstall">
+  </genericsetup:importStep>
+
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="collective.emergency.alerts-hiddenprofiles" />
+
+</configure>

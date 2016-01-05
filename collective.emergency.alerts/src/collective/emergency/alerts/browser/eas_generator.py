@@ -10,7 +10,6 @@ class EASGenerator(BrowserView):
     template = ViewPageTemplateFile('eas.pt')
    
     def __call__(self):
-        print "CODE GEN GO"
         self.request.response.setHeader('Content-Type', 'application/javascript')
         self.request.response.setHeader('X-Theme-Disabled', '1')
         return self.template()

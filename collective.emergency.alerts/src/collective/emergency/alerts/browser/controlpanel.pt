@@ -40,129 +40,175 @@
       
 <body>
 
-    <p class="documentDescription" i18n:translate="description_control_panel">
-        Desc
-    </p>
+    <p class="documentDescription" i18n:translate="description_control_panel"></p>
     
-
     
-<div id="eas-system" class="pat-autotoc autotabs"
-         data-pat-autotoc="section:fieldset;levels:legend;">
+    <div id="eas-system" class="pat-autotoc autotabs"
+             data-pat-autotoc="section:fieldset;levels:legend;">
 
-         
-    <fieldset>
-        <legend>Alerts</legend>
-        
-        <div id="eas-alert-container" tal:define="alerts view/get_alerts">
-        
-            <div class="eas-alert" tal:repeat="(k,v) alerts/items" data-sort="${v/title}-${k}">
+             
+        <fieldset>
+            <legend>Alerts</legend>
             
-                <a title="Toggle Alert On/Off"
-                   tal:condition="python: v['is_active']=='True'" 
-                   tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.state=True')">
-                   <img src="${view/portal/absolute_url}/++resource++collective.emergency.alerts/switch-on.png" alt="State ON" />
-                </a>
-                <a title="Toggle Alert On/Off"
-                   tal:condition="python: v['is_active']=='False'" 
-                   tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.state=False')">
-                   <img src="${view/portal/absolute_url}/++resource++collective.emergency.alerts/switch-off.png" alt="State OFF" />
-                </a>
-                <span class="icon-controlpanel-DateAndTime eas-cursor"
-                      tal:attributes="title python:view.fmt_daterange(v)">
-                </span>
-
-                <a class="eas-lvl-${v/level}"
-                   href="${view/portal/absolute_url}/alert?id=${k}"> ${v/title} </a>
-
+            <div id="eas-alert-container" tal:define="alerts view/get_alerts">
+            
+                <div tal:condition="not: alerts">
+                    There are currently no alerts created.  
+                </div>
                 
-                <a class="plone-btn plone-btn-danger delete plone-btn-xs eas-delete" 
-                   title="Delete Alert"
-                   tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.remove=1')">
-                   Remove
-                </a>
-                <a class="plone-btn plone-btn-primary save plone-btn-xs" 
-                   title="Edit Alert"
-                   href="${view/portal/absolute_url}/edit_alert?id=${k}">
-                   Edit
-                </a>
-            </div>
-            
-        </div>
-        <br />
-        <a class="context" href="${view/portal/absolute_url}/edit_alert">Add Alert</a>
-        
-    </fieldset>
-    
-    <fieldset>
-        <legend>Add Feeds</legend>
-    
-        <form id="form" method="post" action="${context/absolute_url}/@@emergency_manager">
-            <div id="eas-local-feed">   
-                <label>This Sites Emergency Broadcaster</label>
-                <input type="text" readonly="readonly" value="${view/portal/absolute_url}/eas_alerts" />
-            </div>
-            <br />
-            <br />
-            
-            <div id="eas-global-feeds">
-                <label>Global Emergency Broadcast Receiver</label>
-                <span class="example">(Global alerts trump local alerts)</span>
-                <tal:block repeat="feed python: view.get('global_alert_feeds')">
-                    <input type="text" name="form.feed.global.target" value="${feed}" />
-                </tal:block>
+                <div class="eas-alert" tal:repeat="(k,v) alerts/items" data-sort="${v/title}-${k}">
+                
+                    <a title="Toggle Alert On/Off"
+                       tal:condition="python: v['is_active']=='True'" 
+                       tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.state=True')">
+                       <img src="${view/portal/absolute_url}/++resource++collective.emergency.alerts/switch-on.png" alt="State ON" />
+                    </a>
+                    <a title="Toggle Alert On/Off"
+                       tal:condition="python: v['is_active']=='False'" 
+                       tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.state=False')">
+                       <img src="${view/portal/absolute_url}/++resource++collective.emergency.alerts/switch-off.png" alt="State OFF" />
+                    </a>
+                    <span class="icon-controlpanel-DateAndTime eas-cursor"
+                          tal:attributes="title python:view.fmt_daterange(v)">
+                    </span>
+
+                    <a class="eas-lvl-${v/level}"
+                       href="${view/portal/absolute_url}/alert?id=${k}"> ${v/title} </a>
+
+                    
+                    <a class="plone-btn plone-btn-danger delete plone-btn-xs eas-delete" 
+                       title="Delete Alert"
+                       tal:attributes="href python: view.tokenize(view.portal.absolute_url() + '/edit_alert?id=' + k + '&alert.remove=1')">
+                       Remove
+                    </a>
+                    <a class="plone-btn plone-btn-primary save plone-btn-xs" 
+                       title="Edit Alert"
+                       href="${view/portal/absolute_url}/edit_alert?id=${k}">
+                       Edit
+                    </a>
+                </div>
                 
             </div>
-            <input id="eas-add-feed" class="standalone" type="button" value="Add global feed" />
-            <input class="context" type="submit" name="form.feed.global.save" value="Save Global Feeds" />
-
-        </form>
+            <br />
+            <a class="context" href="${view/portal/absolute_url}/edit_alert">Add Alert</a>
+            
+        </fieldset>
         
-        <div id="eas-global-info">
-            If you want to add a custom feed from another source, format the feeds as follows:
+        <fieldset>
+            <legend>Sync</legend>
+        
+            <form id="form" method="post" action="${context/absolute_url}/@@emergency_manager">
+                <div id="eas-local-feed">   
+                    <label>EAS Broadcaster</label> (This sites alert broadcaster)
+                    <input type="text" readonly="readonly" value="${view/portal/absolute_url}/eas_alerts" />
+                </div>
+                <br />
+                <br />
+                
+                <div id="eas-global-feeds">
+                    <label>Sync Sites</label>
+                    <span class="eas-r">(Sites listed here will trump this sites emergencies)</span>
+                    <tal:block repeat="feed python: view.get('global_alert_feeds')">
+                        <input type="text" name="form.feed.global.target" value="${feed}" />
+                    </tal:block>
+                    
+                </div>
+                <input id="eas-add-feed" class="standalone" type="button" value="Add another sites EAS Broadcaster" />
+                <input class="context" type="submit" name="form.feed.global.save" value="Sync Global Feeds" />
+
+            </form>
+            
+            <div id="eas-global-info">
+                <label>What is Sync? </label>
+                <br />
+                Sync allows multiple plone websites to share alerts between them.
+                
+                <br />
+                <br />
+                
+                <label>How to setup Sync? </label>
+                <br />
+                The "EAS Broadcaster" above provides a link to this sites emergency alerts.  
+                Simply add this link to another plone sites "Sync Sites" list.
+                <ol>
+                    <li> 
+                        Copy the EAS Broadcaster link from Plone Site A.
+                    </li>
+                    <li>  
+                        Go to Plone Site B and click "Add another sites EAS Broadcaster".
+                    </li>
+                    <li>  
+                        Paste the link in the Sync Sites list
+                    </li>
+                    <li>  
+                        Click the "Sync Global Feeds" button.
+                    </li>
+                    <li>  
+                        Plone Site B will then receive alerts from Plone Site A.
+                    </li>
+                </ol>
+                
+                <label>Can I Sync systems other than Plone?</label>
+                Yes. Any other system messages can be synced in the Plone EAS system if it follows the format below. 
+                The format is JSONP and this format allows it to work on multiple domains quickly and efficently.
+                                
+                <br />
+                <br />
+                
+                <input type="text" value="http://www.example.org/my_custom_alert_feed" disabled="disabled" />
+<xmp>
+    _EAS.loaded(
+        [{
+            'title' : 'There is a custom alert from another system',
+            'url' : 'http://some.alert.posting',
+            'level' : '0'
+        }]
+    )
+    
+</xmp>
+                
+                
+                <label>Can I add alerts to other sites?</label>
+                Yes. Go to the Code Generator tab above. The code generated there can be added to any other website or system.
+                If the code is added to another system, it will receive the EXACT same alerts from the site the code was copied from.
+                                
+                <br />
+                <br />
+                
+            </div>
+            
+        </fieldset>
+        
+        <fieldset>
+            <legend>Code Generator</legend>
+            
+            <div>
+                The javascript below displays this sites EAS system.  You can copy this javascript and
+                add it to any external system to give it the same alert display.  The file is raw javascript 
+                and should not collide with any namespaces of other systems.  <span class="eas-r">Option 1 is recommended since it
+                will stay up-to-date with this Plone Site.</span>
+            </div>
             
             <br />
             <br />
             
-            <label>JSONP Example: </label>
-            <xmp>
-                _EAS.loaded(
-                    [{
-                        'title' : 'There is an alert',
-                        'url' : 'http://some.news.posting',
-                        'level' : '0'
-                    }]
-                )
-            </xmp>
-            
-        </div>
-        
-    </fieldset>
-    
-    <fieldset>
-        <legend>Code Generator</legend>
-        
-        <div>
-            The javascript below displays this sites EAS system.  You can copy this javascript and
-            add it to any external system to give it the same alert display.  The file is raw javascript 
-            and should not collide with any namespaces of other systems.
-        </div>
-        
-        <br />
-        <br />
-        
-        <label>Direct Links to javascript file:</label>
-        <textarea id="eas-code-link" rows="2" readonly="readonly"><script type="text/javascript" src="${view/portal/absolute_url}/eas.js"></script></textarea>
+            <label>Option 1: (Recommended)</label>
+            <br />
+            <span>Direct Link to javascript file:</span>
+            <textarea id="eas-code-link" rows="2" readonly="readonly"><script type="text/javascript" src="${view/portal/absolute_url}/eas.js"></script></textarea>
 
-        <br />
-        <br />
+            <br />
+            <br />
+            
+            <label>Option 2:</label>
+            <br />
+            <span>Create file called 'eas.js' and add it to a site:</span>
+            <iframe id="eas-code" src="${view/portal/absolute_url}/eas.js"></iframe>
+            
+        </fieldset>
         
-        <label>Create file called 'eas.js' and add it to a site:</label>
-        <iframe id="eas-code" src="${view/portal/absolute_url}/eas.js"></iframe>
         
-    </fieldset>
-    
-    
-</div>
+    </div>
 
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 #eas-system xmp { background-color: #eccbb0; border: 1px solid #e7b184; }
 #eas-system .example { color: red; }
+#eas-system .eas-r { color: darkred; font-style: italic; }
 #eas-system .eas-lvl-0, #eas-system .eas-lvl-1, #eas-system .eas-lvl-2 {
     border-radius: 15px;
     color: white;

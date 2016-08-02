@@ -3,7 +3,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
-import datetime,time,hashlib,json
+import datetime,time,hashlib,json,md5
 
 class Alert(object):
 

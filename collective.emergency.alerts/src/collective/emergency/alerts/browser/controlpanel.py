@@ -97,7 +97,7 @@ class EmergencyAlertManager(ControlPanelFormWrapper):
             global_feeds = []
             for x in feeds:
                 if x:
-                    global_feeds.append(x)
+                    global_feeds.append(x.encode('ascii', 'ignore'))
             registry[self.path + '.global_feeds'] = global_feeds
             
             

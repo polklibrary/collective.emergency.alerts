@@ -90,8 +90,12 @@ class EmergencyAlertManager(ControlPanelFormWrapper):
         if 'form.feed.global.save' in self.request.form:
             registry = getUtility(IRegistry)
             
+            feeds = self.request.form.get('form.feed.global.target','')
+            if isinstance(feeds, str):
+                feeds = [feeds]
+                
             global_feeds = []
-            for x in self.request.form.get('form.feed.global.target',[]):
+            for x in feeds:
                 if x:
                     global_feeds.append(x.decode('utf-8'))
             registry[self.path + '.global_feeds'] = global_feeds

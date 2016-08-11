@@ -12,6 +12,9 @@ class EASGenerator(BrowserView):
     def __call__(self):
         self.request.response.setHeader('Content-Type', 'application/javascript')
         self.request.response.setHeader('X-Theme-Disabled', '1')
+        self.request.response.setHeader('Cache-Control', 'max-age=15, s-maxage=15, public, must-revalidate')
+        self.request.response.setHeader('Vary', 'Accept-Encoding')
+        self.request.response.setHeader('Access-Control-Allow-Origin', '*')
         return self.template()
         
         

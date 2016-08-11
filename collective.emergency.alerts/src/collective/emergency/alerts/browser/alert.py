@@ -143,7 +143,7 @@ class AlertView(BrowserView):
         
         
 class AlertsBroadcaster(BrowserView):
-   
+    
     def __call__(self):
         data = []
         now = datetime.datetime.now()

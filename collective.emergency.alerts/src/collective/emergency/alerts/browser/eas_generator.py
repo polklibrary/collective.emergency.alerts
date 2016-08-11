@@ -25,7 +25,7 @@ class EASGenerator(BrowserView):
         feeds = list(registry['collective.emergency.alerts.browser.controlpanel.IEmergencyAlert.global_feeds']) 
         if not feeds:
             feeds = []
-        feeds.append(self.portal.absolute_url() + '/eas_alerts') # add local feed
+        feeds.append(str(self.portal.absolute_url() + '/eas_alerts')) # add local feed
         return feeds
         
         

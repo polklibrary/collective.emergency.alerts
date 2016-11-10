@@ -159,9 +159,9 @@ class AlertsBroadcaster(BrowserView):
                         data.append(v)
                         
         # Determine Format
-        self.request.response.setHeader('ETag', md5.new(str(data)).hexdigest())
-        self.request.response.setHeader('Cache-Control', 'max-age=60, s-maxage=60, public, must-revalidate')
-        self.request.response.setHeader('Vary', 'Accept-Encoding')
+        #self.request.response.setHeader('ETag', md5.new(str(data)).hexdigest())
+        #self.request.response.setHeader('Cache-Control', 'max-age=60, s-maxage=60, public, must-revalidate')
+        #self.request.response.setHeader('Vary', 'Accept-Encoding')
         self.request.response.setHeader('Content-Type', 'application/json')
         self.request.response.setHeader('Access-Control-Allow-Origin', '*')
         return self.toJSONP(data)

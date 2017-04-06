@@ -52,5 +52,13 @@
         permission="zope2.View"
         />
       
+        
+    <browser:page
+        for="*"
+        name="eas.css"
+        class=".css.CSSGenerator"
+        permission="zope2.View"
+        />
+      
       
 </configure>

@@ -3,7 +3,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
-import datetime,time,hashlib,json,md5
+import datetime,time,hashlib,json,md5,HTMLParser
 
 class Alert(object):
 
@@ -52,7 +52,10 @@ class Alert(object):
             
     def set(self, name, value):
         if isinstance(value, str):
-            value = value.decode('utf-8')
+            parser = HTMLParser.HTMLParser()
+            value = "".join(value.splitlines())
+            value = parser.unescape(value)
+            value = value.decode("utf-8")
         self._struct[name] = value
             
     def get(self, name):

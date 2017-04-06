@@ -1,0 +1,3 @@
+<tal:block condition="view/is_eas_active">
+body { padding-top: 27px; } /* EAS is active, bump down to prevent jumping page effect */
+</tal:block>

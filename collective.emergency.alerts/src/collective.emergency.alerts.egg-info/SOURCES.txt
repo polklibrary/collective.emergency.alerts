@@ -28,6 +28,8 @@ src/collective/emergency/alerts/browser/alert.py
 src/collective/emergency/alerts/browser/configure.zcml
 src/collective/emergency/alerts/browser/controlpanel.pt
 src/collective/emergency/alerts/browser/controlpanel.py
+src/collective/emergency/alerts/browser/css.pt
+src/collective/emergency/alerts/browser/css.py
 src/collective/emergency/alerts/browser/eas.pt
 src/collective/emergency/alerts/browser/eas_generator.py
 src/collective/emergency/alerts/browser/edit_alert.pt

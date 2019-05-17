@@ -14,64 +14,47 @@ Description: .. This README is meant for consumption by humans and pypi. Pypi ca
         collective.emergency.alerts
         ==============================================================================
         
-        Tell me what your product does
+        This product is an emergency alert system in plone.  The alerts appear at the top of the site on all pages.  There are color levels of urgency based on the alert.  The system can sync multiple plone sites into one emergency system. There is also a through-the-web code generator which generates emergency alert code for systems other than plone to sync up to plones system. 
         
         Features
         --------
         
-        - Can be bullet points
+        - Site wide emergency messages 
+        - Emergency message manager
+        - Emergency messages can have date and time limits
+        - Emergency feeds (JSON)
+        - Multiple plone sites with this product can be synced together
+        - Code generator to provide this alert to external systems
         
-        
-        Examples
+        Preview
         --------
         
-        This add-on can be seen in action at the following sites:
-        - Is there a page on the internet where everybody can see the features?
-        
-        
-        Documentation
-        -------------
-        
-        Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
+        Youtube Video:
+        - coming soon...
         
         
         Translations
         ------------
         
-        This product has been translated into
-        
-        - Klingon (thanks, K'Plai)
-        
-        
-        Installation
-        ------------
-        
-        Install collective.emergency.alerts by adding it to your buildout::
-        
-            [buildout]
-        
-            ...
-        
-            eggs =
-                collective.emergency.alerts
-        
-        
-        and then running ``bin/buildout``
+        None at this time.
         
         
         Contribute
         ----------
         
-        - Issue Tracker: https://github.com/collective/collective.emergency.alerts/issues
-        - Source Code: https://github.com/collective/collective.emergency.alerts
-        - Documentation: https://docs.plone.org/foo/bar
+        Contributors are welcome
+        
+        
+        Contributors
+        ----------
+        
+        David Hietpas (hietpasd@uwosh.edu)
         
         
         Support
         -------
         
-        If you are having issues, please let us know.
-        We have a mailing list located at: project@example.com
+        If you are having issues, please let us know in the github issue tracker
         
         
         License

@@ -3,7 +3,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
-import datetime,time,hashlib,json,md5,HTMLParser
+import datetime,time,hashlib,json,html
 
 class Alert(object):
 
@@ -23,11 +23,11 @@ class Alert(object):
         if id:
             registry = getUtility(IRegistry)
             alerts = registry['collective.emergency.alerts.browser.controlpanel.IEmergencyAlert.alerts']
-            self.id = id.decode('utf-8')
+            self.id = id
             if self.id in alerts:
                 self._struct = alerts[self.id]
         else:
-            self.id = hashlib.sha1(str(time.time())).hexdigest().decode('utf-8')
+            self.id = hashlib.sha1(str(time.time()).encode('utf-8')).hexdigest()
             
     def save(self):
         registry = getUtility(IRegistry)
@@ -52,10 +52,10 @@ class Alert(object):
             
     def set(self, name, value):
         if isinstance(value, str):
-            parser = HTMLParser.HTMLParser()
+            parser = html.parser.HTMLParser()
             value = "".join(value.splitlines())
             value = parser.unescape(value)
-            value = value.decode("utf-8")
+            value = value#.decode("utf-8")
         self._struct[name] = value
             
     def get(self, name):
@@ -162,9 +162,6 @@ class AlertsBroadcaster(BrowserView):
                         data.append(v)
                         
         # Determine Format
-        #self.request.response.setHeader('ETag', md5.new(str(data)).hexdigest())
-        #self.request.response.setHeader('Cache-Control', 'max-age=60, s-maxage=60, public, must-revalidate')
-        #self.request.response.setHeader('Vary', 'Accept-Encoding')
         self.request.response.setHeader('Content-Type', 'application/json')
         self.request.response.setHeader('Access-Control-Allow-Origin', '*')
         return self.toJSONP(data)

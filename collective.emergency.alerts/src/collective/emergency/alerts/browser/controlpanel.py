@@ -7,7 +7,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone import api
 from plone.z3cform import layout
-from plone.directives import form
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.registry.interfaces import IRegistry

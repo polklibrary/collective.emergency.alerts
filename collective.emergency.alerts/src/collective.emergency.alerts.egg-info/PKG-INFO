@@ -1,6 +1,6 @@
-Metadata-Version: 1.1
+Metadata-Version: 2.1
 Name: collective.emergency.alerts
-Version: 1.0a1
+Version: 1.1
 Summary: Adds emergency alerts to the top of the site.  Can be from multiple feeds and local.
 Home-page: https://pypi.python.org/pypi/collective.emergency.alerts
 Author: David Hietpas
@@ -82,8 +82,9 @@ Keywords: Python Plone
 Platform: UNKNOWN
 Classifier: Environment :: Web Environment
 Classifier: Framework :: Plone
-Classifier: Framework :: Plone :: 5.0
+Classifier: Framework :: Plone :: 5.2
 Classifier: Programming Language :: Python
-Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.7
 Classifier: Operating System :: OS Independent
 Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Provides-Extra: test

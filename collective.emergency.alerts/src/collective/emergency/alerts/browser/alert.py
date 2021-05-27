@@ -162,7 +162,7 @@ class AlertsBroadcaster(BrowserView):
                         data.append(v)
                         
         # Determine Format
-        self.request.response.setHeader('Content-Type', 'application/json')
+        self.request.response.setHeader('Content-Type', 'application/javascript')
         self.request.response.setHeader('Access-Control-Allow-Origin', '*')
         return self.toJSONP(data)
         
